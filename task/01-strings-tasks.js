@@ -280,7 +280,7 @@ function encodeToRot13(str) {
        const suits = '♣♦♥♠';    
        return (cards.indexOf(value[0])+1) + 13 * suits.indexOf(value[value.length-1]) - 1;
     }
-
+    
 
     module.exports = {
         concatenateStrings: concatenateStrings,
