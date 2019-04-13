@@ -102,12 +102,12 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-   console.log(date.toISOString());
+   
     let hour = +date.toISOString(12).slice(11,13);
     if (hour > 12) hour -= 12;
     
     let min = date.getMinutes();
-    console.log(hour,min);
+    
     let divinder = ((hour + (min / 60 ))*30 - min *6);
     
     while (divinder > 360) {divinder-= 360;}
