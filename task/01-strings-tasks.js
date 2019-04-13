@@ -69,7 +69,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-    return value.slice(7, value.length-1);
+    return value.slice(7, value.length - 1);
 }
 
 
@@ -145,7 +145,7 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-    return str.slice(1,str.length-1);
+    return str.slice(1, str.length - 1);
 }
 
 
@@ -160,7 +160,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-    return str.toUpperCase(); 
+    return str.toUpperCase();
 }
 
 /**
@@ -202,16 +202,12 @@ function extractEmails(str) {
  */
 function getRectangleString(width, height) {
     let str = '';
-    for (let i = 0 ; i <= height-1; i++){
-        if (i == 0) 
-            str += '┌'+'─'.repeat(width-2) + '┐'+'\n' 
-        else if (i == height-1) 
-          str += '└'+'─'.repeat(width-2) + '┘'+'\n' 
-        else
-          str += '│' + ' '.repeat(width-2) + '│'+'\n';      
+    str += '┌' + '─'.repeat(width - 2) + '┐' + '\n'
+    for (let i = 1; i <= height - 2; i++) {
+        str += '│' + ' '.repeat(width - 2) + '│' + '\n';
     }
+    str += '└' + '─'.repeat(width - 2) + '┘' + '\n'
     return str;
-
 }
 
 
@@ -231,70 +227,75 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-    throw new Error('Not implemented');
+    return str.replace(/[a-zA-Z]/g, function (symbol) {
+        return String.fromCharCode((symbol >= 'a'? 122: 90) >= (symbol = symbol.charCodeAt(0)+13)? symbol : symbol - 26);
+    });
 }
-
-/**
- * Returns true if the value is string; otherwise false.
- * @param {string} value
- * @return {boolean}
- *
- * @example
- *   isString() => false
- *   isString(null) => false
- *   isString([]) => false
- *   isString({}) => false
- *   isString('test') => true
- *   isString(new String('test')) => true
- */
-function isString(value) {
-    throw new Error('Not implemented');
-}
-
-
-/**
- * Returns playid card id.
- * 
- * Playing cards inittial deck inclides the cards in the following order:
- * 
- *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
- *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
- *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
- *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
- * 
- * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
- * Function returns the zero-based index of specified card in the initial deck above.
- * 
- * @param {string} value
- * @return {number}
- *
- * @example
- *   'A♣' => 0
- *   '2♣' => 1 
- *   '3♣' => 2
- *     ...
- *   'Q♠' => 50
- *   'K♠' => 51
- */
-function getCardId(value) {
-    throw new Error('Not implemented');
-}
+     
+    
+    /**
+     * Returns true if the value is string; otherwise false.
+     * @param {string} value
+     * @return {boolean}
+     *
+     * @example
+     *   isString() => false
+     *   isString(null) => false
+     *   isString([]) => false
+     *   isString({}) => false
+     *   isString('test') => true
+     *   isString(new String('test')) => true
+     */
+    function isString(value) {
+        return typeof value === 'string' || value instanceof String;
+    }
 
 
-module.exports = {
-    concatenateStrings: concatenateStrings,
-    getStringLength: getStringLength,
-    getStringFromTemplate: getStringFromTemplate,
-    extractNameFromTemplate: extractNameFromTemplate,
-    getFirstChar: getFirstChar,
-    removeLeadingAndTrailingWhitespaces: removeLeadingAndTrailingWhitespaces,
-    repeatString: repeatString,
-    removeFirstOccurrences: removeFirstOccurrences,
-    unbracketTag: unbracketTag,
-    convertToUpperCase: convertToUpperCase,
-    extractEmails: extractEmails,
-    getRectangleString: getRectangleString,
-    encodeToRot13: encodeToRot13,
-    isString: isString,
-    getCardId: getCardId
-};
+    /**
+     * Returns playid card id.
+     * 
+     * Playing cards inittial deck inclides the cards in the following order:
+     * 
+     *  'A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+     *  'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+     *  'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+     *  'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'
+     * 
+     * (see https://en.wikipedia.org/wiki/Standard_52-card_deck)
+     * Function returns the zero-based index of specified card in the initial deck above.
+     * 
+     * @param {string} value
+     * @return {number}
+     *
+     * @example
+     *   'A♣' => 0
+     *   '2♣' => 1 
+     *   '3♣' => 2
+     *     ...
+     *   'Q♠' => 50
+     *   'K♠' => 51
+     */
+    function getCardId(value) {
+       const cards = 'A234567891JQK';
+       const suits = '♣♦♥♠';    
+       return (cards.indexOf(value[0])+1) + 13 * suits.indexOf(value[value.length-1]) - 1;
+    }
+
+
+    module.exports = {
+        concatenateStrings: concatenateStrings,
+        getStringLength: getStringLength,
+        getStringFromTemplate: getStringFromTemplate,
+        extractNameFromTemplate: extractNameFromTemplate,
+        getFirstChar: getFirstChar,
+        removeLeadingAndTrailingWhitespaces: removeLeadingAndTrailingWhitespaces,
+        repeatString: repeatString,
+        removeFirstOccurrences: removeFirstOccurrences,
+        unbracketTag: unbracketTag,
+        convertToUpperCase: convertToUpperCase,
+        extractEmails: extractEmails,
+        getRectangleString: getRectangleString,
+        encodeToRot13: encodeToRot13,
+        isString: isString,
+        getCardId: getCardId
+    };
