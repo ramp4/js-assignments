@@ -650,9 +650,9 @@ function swapHeadAndTail(arr) {
    let head = arr.splice(0 , center);
    
    let tail = arr.splice(tailStart - head.length , center);
-   console.log(head,arr,tail);
+   
    let result = tail.concat(arr).concat(head);
-   console.log('res ',result);
+   
    return result;
 }
 
